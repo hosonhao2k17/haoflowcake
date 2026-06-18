@@ -1,9 +1,15 @@
 package main
 
-import "github.com/gofiber/fiber/v3"
+import (
+	"fmt"
+	"haoflowcake/config"
+
+	"github.com/gofiber/fiber/v3"
+)
 
 func main() {
+	cf := config.LoadConfig()
 	app := fiber.New()
-
-	app.Listen("4433")
+	fmt.Println(cf.App)
+	app.Listen(cf.App.GetPort())
 }
