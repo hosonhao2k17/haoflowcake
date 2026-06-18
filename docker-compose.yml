@@ -1,0 +1,13 @@
+
+
+services:
+  database:
+    container_name: haoflowcake_postgres
+    image: postgres
+    restart: always
+    ports:
+      - "1234:5432"
+    environment:
+      POSTGRES_PASSWORD: Sonhao@20045
+      POSTGRES_USER: son_hao
+      POSTGRES_DB: hao_flow_cake
