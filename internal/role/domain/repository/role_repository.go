@@ -7,4 +7,5 @@ import (
 
 type RoleRepository interface {
 	Create(ctx context.Context, roleEntity *roleentity.RoleEntity) (*roleentity.RoleEntity, error)
+	GetRoleByKey(ctx context.Context, key string) (*roleentity.RoleEntity, error)
 }
