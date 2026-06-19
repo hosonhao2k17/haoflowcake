@@ -21,14 +21,19 @@ func NewRoleHandler(
 	}
 }
 
-func (handler *RoleHandler) Create(c fiber.Ctx) error {
+func (r *RoleHandler) RegisterRouter(router fiber.Router) {
+	role := router.Group("roles")
+	role.Post("/", r.Create)
+}
+
+func (r *RoleHandler) Create(c fiber.Ctx) error {
 	createRoleDto := new(dto.CreateRoleDto)
 	if err := c.Bind().Body(createRoleDto); err != nil {
 		return err
 	}
-	data, err := handler.createRoleUseCase.Execute(c.Context(), createRoleDto.ToCreateRoleInput())
+	data, err := r.createRoleUseCase.Execute(c.Context(), createRoleDto.ToCreateRoleInput())
 	if err != nil {
 		return err
 	}
-	return common.ResponseCreated(c, data, "created role success")
+	return common.ResponseCreated(c, dto.NewRoleResponse(data), "created role success")
 }

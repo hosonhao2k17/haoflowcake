@@ -11,9 +11,9 @@ import (
 
 type RoleModel struct {
 	commonmodel.BaseModel
-	ID          uuid.UUID      `json:"id" gorm:"primaryKey;type:uuid;default:uuid_generate_v4()"`
+	ID          uuid.UUID      `json:"id" gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
 	Name        string         `json:"name" gorm:"not null"`
-	Key         string         `json:"key" gorm:"unique,not null"`
+	Key         string         `json:"key" gorm:"unique; 	not null"`
 	Description *string        `json:"description"`
 	DeletedAt   gorm.DeletedAt `json:"deleted_at"`
 }

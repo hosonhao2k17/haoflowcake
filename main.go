@@ -4,6 +4,7 @@ import (
 	"haoflowcake/config"
 	"haoflowcake/database"
 	"haoflowcake/logger"
+	"haoflowcake/router"
 
 	"github.com/gofiber/fiber/v3"
 	"go.uber.org/zap"
@@ -16,7 +17,12 @@ func main() {
 	lg.Info("init haoflowcake", zap.String("port", cf.App.GetPort()))
 
 	//CONNECT TO DATABASE
-	database.Connect(cf, lg)
+	db := database.Connect(cf, lg)
+	//AUTO MIGRATE
+	database.AutoMigrate(db, lg)
+
+	//REGISTER ROUTER
+	router.RegisterRouter(app, db)
 	if err := app.Listen(cf.App.GetPort()); err != nil {
 		lg.Fatal("fail when init app", zap.Error(err))
 	}
