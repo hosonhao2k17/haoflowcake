@@ -10,5 +10,6 @@ type RoleEntity struct {
 	entity.BaseEntity
 	ID          uuid.UUID
 	Name        string
+	Key         string
 	Description *string
 }
