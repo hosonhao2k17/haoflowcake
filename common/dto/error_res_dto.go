@@ -1,6 +1,7 @@
 package dto
 
 import (
+	"fmt"
 	"haoflowcake/common/constant"
 	"time"
 )
@@ -24,6 +25,7 @@ func (err *ErrorResDto) Error() string {
 }
 
 func NewErrorResponse(errCode constant.ErrorCode) *ErrorResDto {
+	fmt.Println(errCode)
 	currentTime := time.Now()
 	return &ErrorResDto{
 		ErrorCode:  errCode,

@@ -4,6 +4,7 @@ import (
 	"haoflowcake/config"
 	"haoflowcake/database"
 	"haoflowcake/logger"
+	"haoflowcake/middleware"
 	"haoflowcake/router"
 
 	"github.com/gofiber/fiber/v3"
@@ -12,7 +13,9 @@ import (
 
 func main() {
 	cf := config.LoadConfig()
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		ErrorHandler: middleware.ErrorHandler,
+	})
 	lg := logger.NewLogger(cf)
 	lg.Info("init haoflowcake", zap.String("port", cf.App.GetPort()))
 
