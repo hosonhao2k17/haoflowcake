@@ -24,3 +24,13 @@ func (roleRepo *roleRepository) Create(ctx context.Context, roleEntity *roleenti
 	}
 	return roleModel.ToRoleEntity(), nil
 }
+
+func (roleRepo *roleRepository) GetRoleByKey(ctx context.Context, key string) (*roleentity.RoleEntity, error) {
+	roleModel := &model.RoleModel{
+		Key: key,
+	}
+	if err := roleRepo.db.WithContext(ctx).First(roleModel).Error; err != nil {
+		return nil, err
+	}
+	return roleModel.ToRoleEntity(), nil
+}
